@@ -1,4 +1,4 @@
 interface:
-  display_name: "AI PM 学员逐字稿教练"
-  short_description: "补齐数据、AI Coding、行业判断与自驱力的学员逐字稿"
-  default_prompt: "Use $ai-pm-student-script-coach to audit my resume and PRD, then build a truthful AI PM interview script with M15 data cards, AI Coding evidence, industry judgment and learning/self-drive assets."
+  display_name: "AI PM 学员面试回答教练"
+  short_description: "先出 50 道简历主问题；确认后分批讲考点、回答模型与参考回答"
+  default_prompt: "Use $ai-pm-student-script-coach to generate exactly 50 deep, resume-specific AI PM main questions with strong technical coverage. Show only the numbered questions first and ask me to review them. After I confirm, expand them in batches with what each tests, a tailored answer model, and a truthful spoken reference answer."

@@ -1,310 +1,80 @@
 ---
 name: ai-pm-student-script-coach
-description: 面向 AI 产品经理学员的证据优先面试逐字稿教练。Use when a student uploads or references a resume, PRD, portfolio, project document, JD, mock-interview transcript, or existing逐字稿 and wants to predict likely interview questions, build or revise a structured interview answer system, find missing evidence, distinguish real results from targets, or self-test before an AI PM interview. Covers project/product/technical/business/behavioral dimensions plus metric numerator-denominator-baseline-cycle-attribution audits, Web/Vibe/AI Coding artifacts, AI industry macro judgment, self-learning and self-drive. Especially useful for RAG, Agent, Workflow, AIGC, ChatBI, Eval, Bad Case, model routing, private deployment, enterprise AI and career-transition candidates. Produces a student-facing question map, fact ledger, layered scripts, reusable answer cards, evidence checklist, pressure-test branches and coverage audit without inventing experience.
+description: 面向 AI 产品经理学员，依据简历、项目材料与目标 JD，第一阶段只输出 50 道覆盖 Interview Designer 能力域且具有技术深度的主问题，待学员确认后，第二阶段按题号分批给出考察点、回答模型和可信的口头参考回答。面试官现场追问、评分和模拟情境由 interview-designer 处理。
 ---
 
-# AI PM Student Interview Script Coach
+# AI PM Student Script Coach
 
-## Purpose
+## 任务与第一性原理
 
-Turn a student's resume, PRD and project evidence into a truthful, reusable AI 产品经理面试逐字稿 system.
+这个 skill 的交付对象是**学员**。面试准备有两个不同的认知任务：先发现简历与 AI PM 岗位之间值得深究的判断，再学会用真实经历解释这些判断。第一阶段只做问题地图，避免答案过早固定思路；学员确认问题覆盖合适后，第二阶段才展开答案。
 
-The goal is not to help the student memorize one polished answer. It is to build a set of evidence-backed answer assets that can respond to many differently worded interview questions.
+因此默认产出顺序只有两层：
 
-Use this first-principles definition:
+1. **50 道主问题**：从简历主张、项目技术链路和 AI PM 能力要求提炼 50 个可独立回答的主问题。学生只看到编号与问题本身。
+2. **确认后按题批量展开**：沿用同一编号，逐题给出「考什么」「回答模型」「参考回答」。让学员能用真实经历替换、练习和修订。
 
-> A strong interview script compresses real experience into reusable claims, decisions, evidence, failures and trade-offs; it does not manufacture certainty or hide project boundaries.
+50 题的价值来自**能力域覆盖 × 项目特异性 × 判断深度**，不是把同一个问题换 50 种问法。技术深度也不是背模型定义；要能从业务任务解释数据、方案、评测、失败处理和运行代价之间的因果关系。第一阶段完成后必须停下来，让学员审阅问题并主动询问是否开始细化。
 
-## Modes
+证据核对是写好参考回答的内部步骤，**不是默认交付物**。不要因为材料有数字就自动输出事实台账、M15 数据卡、十类素材卡、行业研究报告或七天计划。只有用户明确要这些材料，或某题的回答离不开关键口径时，才给出最小必要说明。
 
-- **从零搭建**: resume/PRD exist but no script; generate the full structure and first draft.
-- **逐字稿诊断**: audit an existing script for fact conflicts, missing dimensions, generic AI language and weak evidence.
-- **问题预测**: generate likely question families and follow-up branches from resume claims and project design.
-- **压力测试**: act as an interviewer, ask one connected chain at a time, then score the answer and request missing evidence.
-- **JD 定制**: compare the student's evidence with a target JD and rewrite emphasis without inventing experience.
+## 学员版与面试官版的边界
 
-## Required Inputs
+学生第一阶段只看到基于自身简历的 50 道主问题；确认进入第二阶段后，才看到题目考察意图、回答结构和参考表达。
 
-Read all available evidence before writing:
+学生版不包含：面试官实际使用的题序、条件追问树、临场变更情境、陷阱、A/B/C 判分线、录用阈值或面试官评语。不要把 `interview-designer-1.0.0` 的面试官手册改头换面交给学员。如果用户要设计现场模拟面试，使用 Interview Designer；如果要帮学员备考，使用本 skill。
 
-1. Resume or resume draft.
-2. PRD, portfolio, prototype, project summary or case study.
-3. Existing interview script or transcript, if available.
-4. Target JD/company/level, if available.
+## 输入与维度来源
 
-If an input is missing, continue with the available material. Mark unsupported areas `[待补证据]`; do not fabricate.
+读取用户提供的简历；有 PRD、作品集、项目总结、学员原回答或 JD 时一并使用。缺失材料不阻止出题，但不能编造项目细节、个人贡献、指标口径或真实用户。对未经独立验证的简历陈述，写参考回答时视为「简历主张」，不要擅自升格为已证实成果。
 
-## Required References
+出题前读取 [references/coverage-model.md](references/coverage-model.md)，并核对本机 `interview-designer-1.0.0/references/coverage-model.md` 的 A–K 能力域。内部按 11 组检查覆盖，尤其检查 C/D/E/F/G 的技术、体验、评测与落地能力；不要把维度码、配额或覆盖诊断写进第一阶段的学员输出。Interview Designer 标题称“52 子维度”，现有正文实际列出 83 项；以能力域和适用的具体能力为依据，不机械地按子维度数出题。
 
-- Read [references/script-preparation-inventory.md](references/script-preparation-inventory.md) before creating or auditing a complete逐字稿; use it to show the student what is missing before expanding questions.
-- Read [references/coverage-model.md](references/coverage-model.md) before predicting questions or auditing completeness.
-- Read [references/data-coding-industry-learning.md](references/data-coding-industry-learning.md) for every complete逐字稿 and whenever materials contain a numerical result, Web/Vibe/AI Coding claim, industry opinion, or learning/self-drive claim.
-- Read [references/output-template.md](references/output-template.md) before creating a full student deliverable.
-- After writing a Markdown deliverable, run `python3 scripts/validate_student_script.py <file>` and resolve actionable warnings.
+## 工作流
 
-## Workflow
+### 第一阶段：只生成 50 道主问题
 
-### 1. Build the fact and evidence ledger
+- 默认**恰好 50 题**，除非用户明确指定其他数量。以稳定题号 `Q01`–`Q50` 编号，每行只有「编号＋主问题」；可按职业背景、各项目、跨项目能力安排顺序，但不加维度、考察焦点、简历锚点、优先级、答案或覆盖表。
+- 内部检查 A–K 11 组：真实性，问题与需求，方案与 AI 边界，产品形态与体验，技术深度，可靠性与评测，企业落地现实，商业价值，协作与推动，学习与自驱，岗位匹配与动机。每个适用组都应有实质性问题。不要均分题数；针对 AI PM，C/E/F/G 合计通常约 25–30 题，保证技术深度，但根据简历与目标岗位调整。
+- 技术题必须贯穿**输入数据 → 模型/检索/工作流选择 → 输出与人机交互 → 离线/在线评测 → Bad Case/回归 → 性能、成本、安全和运行维护**。从候选人简历里的具体技术主张出发，问清选择依据、替代方案、指标口径、失败节点和取舍。覆盖适用的多模态处理、RAG/检索、Prompt/结构化输出、模型路由、Workflow/Agent、质量评测、Trace、权限与合规、延迟/成本、灰度回滚；有 AI Coding 主张时还要问产物、测试与 Debug。不要凑术语定义题或要求产品经理证明算法工程师级实现。
+- 每题只承担一个主要判断，但要问到可验证的深度，例如“为什么这样选、依据是什么、失败时怎么办、怎样验证”。同源问法合并，再从同一项目里寻找**不同**的判断：镜头切分、混合检索、分镜生成、质检、使用采用各可成题；同一混合检索选择不要拆成五道换词题。
+- 未提供某类经历时，可以问“你是否做过、实际到哪一步”，不能在题干里暗示其已完成。纸面项目问判断与验证路径，真实使用项目问使用、异常与复盘。内部完成覆盖审计即可，不向学员附诊断表。
+- 输出 50 题后**停止**，在末尾用一句话主动问：“你先看这 50 道主问题，方向和深度是否合适？确认后我再按题号分批细化‘考什么、回答模型、参考回答’。”用户要求修改题目时先修订第一阶段；用户确认或直接指定题号后再进入第二阶段。
 
-Extract every important resume/PRD claim and record:
+### 第二阶段：按题号批量展开
 
-`claim -> source -> status -> conflict -> project maturity -> evidence level -> proof needed -> safe wording`.
+- 只在学员确认题目方向、明确要求继续细化，或指定题号时开始。首次请求即使说“从零到一/全部生成”，也先交付第一阶段供审阅；若用户明确要求跳过审阅、直接全量生成，则按其要求继续。
+- 基于已确认的 50 题继续，不重新生成另一套题；同一题号与题干在所有批次保持一致。
+- 一批通常展开 4–6 题；用户指定题号、批量大小或顺序时服从用户。确认“全部细化”后连续完成全部批次，无需每批重复确认。内容较长时可保存为若干批次文件。
+- 每题固定三项核心内容：
+  1. **这个问题在考什么**：用学员听得懂的话解释要证明的能力、该题与简历哪项主张相关；不写评分规则或隐藏追问。
+  2. **回答模型**：针对该题给出 3–5 步的表达路径和各步要用的事实。可用“背景→本人动作→结果→边界”“目标→备选→取舍→验证”“定义→基线→变化→归因”等模型，但不能所有题都套 STAR 或同一模板。
+  3. **参考回答**：提供一段自然、可口述、第一人称的示范，通常约 150–250 个汉字；先讲结论，再用简历里的具体场景/个人动作支撑，说明关键取舍或边界。它是**可改写的参考**，不是要求学员背诵的唯一标准答案。
+- 只有当回答质量确实依赖缺失事实时，在题尾加一行 `本人需确认：...`。不要为每题复制长篇证据表。
+- 写模型和示范前先判断题型：经历题重本人行动与事实；决策题重备选与取舍；指标题重定义、前后可比性与归因；可靠性题重错误如何被发现和承接；企业落地题重真实约束；动机题重经历连续性与岗位要求。因题选择模型。
 
-Classify status as:
+## 参考回答的事实边界
 
-- `verified fact`
-- `candidate claim`
-- `design target`
-- `solution assumption`
-- `external benchmark`
-- `inference`
+- **已有明确材料**：可把简历主张写成口头初稿，但不得新增人物、日期、冲突、访谈原话、成本构成、上线阶段或效果归因。
+- **数字不清**：优先示范怎样讲业务问题、动作和观察；如需引用简历数字，明确“简历记录/项目当时统计为……，口径需核对”，只标出这题真正缺的分母、周期或对照。不得把推算、目标、竞品值写成实测。
+- **经历缺失**：不要编一个“真实失败”或“跨团队冲突”的完整故事。给出可口述的回答骨架和 `[请填本人真实案例]`，并注明需要哪一种实际记录；若无该经历，可示范如何诚实说明已有边界和后续处理思路。
+- **纸面项目**：讲设计判断和验证计划，不写成已上线的用户结果。
+- **JD 缺失**：K 组可问职业路径、能力迁移和目标岗位方向；不伪造对特定公司的理解。
+- 不凭工具名推断本人写了代码、训练模型、管理团队或独立决定架构。团队动作和本人动作分开。
 
-Grade project maturity:
+## 其他调用方式
 
-- `M0` idea/research
-- `M1` PRD/prototype
-- `M2` runnable demo
-- `M3` internal test
-- `M4` customer POC
-- `M5` customer-environment real-user trial
-- `M6` accepted or paid production
-- `M7` scaled replication
+- 用户提供简历首次调用：先做第一阶段，输出 50 道主问题并问是否细化。
+- 用户只要题目：只做第一阶段，并问是否需要后续细化。
+- 用户说“展开 Qxx–Qyy”：只做指定题号的第二阶段。
+- 用户提供自己的回答：对照该题的考察点和回答模型，指出可保留的真实内容、缺失逻辑与说过头之处，再给一版修改示例；不要打面试官等级。
+- 用户首次说“全部生成/从零到一”：先输出 50 题供确认；确认后批量细化全部题目，不追加未请求的附录。用户明确要求跳过题目审阅时可一次完成。
+- 用户要求保存文件：保持原始材料不变，按 [references/output-template.md](references/output-template.md) 保存清晰的索引与批次；若直接在对话中交付更方便，就直接回答。
 
-Grade evidence:
+## 完成自检
 
-- `E0` opinion only
-- `E1` framework
-- `E2` specific past action
-- `E3` artifact/data/version evidence
-- `E4` customer use, independent acceptance or business result
-
-Resolve contradictions in name, dates, employer, customer type, team, project nature, stage and metrics before writing confident answers. Never turn a target, assumption, benchmark or inference into a measured result.
-
-For every key numerical claim, add a linked `M15 数据指标卡`. A number is not ready merely because it has a source sentence: numerator, denominator/exclusions, sample, cycle, Ground Truth, comparable baseline/after/control, attribution, guardrails and business meaning must be known or marked `[待补证据]`.
-
-### 2. Define the student's positioning
-
-Write a one-sentence positioning using only supported evidence:
-
-`current background + target role + strongest differentiated evidence + honest boundary`.
-
-Then identify:
-
-- three strongest evidence-backed capabilities;
-- two capabilities that exist only at design/demo level;
-- one highest-risk gap for the target role;
-- the correct target level based on evidence, not aspiration.
-
-### 3. Audit the complete script-preparation inventory
-
-Before writing prose, apply `references/script-preparation-inventory.md` and output a `逐字稿准备清单与缺口诊断`.
-
-For each applicable dimension record:
-
-`priority P0/P1/P2 -> ready/partial/missing/N/A -> existing answer/evidence -> missing material -> next action`.
-
-Do not tell the student only that a dimension is missing. Explain what they need to prepare: conclusion, real case, artifact/data, follow-up branch and honesty boundary. Complete all P0 dimensions before expanding a large optional question bank.
-
-### 4. Predict question families
-
-Generate questions from claims, not from a generic bank.
-
-Use this chain for every important claim:
-
-`claim authenticity -> personal ownership -> decision and alternative -> artifact/data -> metric audit -> failure/corner case -> business/adoption -> changed constraint -> transfer`.
-
-Add four cross-cutting families using `references/data-coding-industry-learning.md`:
-
-1. `M15 数据指标审计`: apply to every key number, not just the strongest metric;
-2. `C10 Web/Vibe/AI Coding`: walk through a real runnable artifact, tests, Debug, security and product impact, or expose the gap honestly;
-3. `I8 AI 行业判断`: prepare dated evidence, mechanism, target-company implication and falsifier;
-4. `L8 学习与自驱`: prepare a self-identified gap/problem, visible output, feedback, behavior change and one failed/corrected effort.
-
-Cover every applicable dimension in `references/coverage-model.md`. For a major RAG/Agent/private-deployment project, include all four technical groups:
-
-1. retrieval and document structure;
-2. Prompt, model and orchestration;
-3. Eval, Trace and production governance;
-4. security, data governance and responsible use.
-
-Mark truly irrelevant dimensions `N/A` with a reason. Do not silently omit them.
-
-### 5. Build reusable answer assets before prose
-
-In student-facing output, call these **面试回答素材卡** and explain plainly: they are not additional essays to memorize or materials to submit; they are a private reusable source library. The student fills each card once, links it to several question variants, and uses the same facts/evidence to answer consistently.
-
-Create:
-
-- **事实卡**: verified facts, dates, team, stage, users, artifacts, metrics and safe wording;
-- **数据卡**: metric purpose, definition/unit, numerator, denominator/exclusions, source, sample/slices, cycle, Ground Truth, baseline, comparison, attribution, guardrails, business result and evidence status;
-- **决策卡**: decision, rejected alternative, evidence, trade-off and result;
-- **故事卡**: conflict, failure, reversed judgment, user discovery and delivery pressure;
-- **技术卡**: end-to-end chain, node boundary, artifact/Trace, Bad Case and release guardrail;
-- **AI Coding 卡**: user problem, runnable Web/AI artifact, AI-versus-person contribution, tests, Debug, security/deployment boundary and product decision changed;
-- **商业卡**: user, buyer, budget owner, approver, veto owner, alternative, TCO/ROI and adoption evidence;
-- **行业判断卡**: dated evidence, mechanism, workflow impact, opportunity/constraint, target-company action and falsifier;
-- **学习/自驱卡**: self-identified gap, deliberate practice, artifact, feedback/verification, behavior change, stop/continue decision and next gap;
-- **迁移卡**: what is reusable, what is not, evidence gap and 30/60/90 plan.
-
-Reuse these assets across question variants. Do not independently invent an answer for every wording.
-
-Give concrete actions and suggested counts: `6-10 fact cards`, `one M15 data card per key number`, `4-6 decision cards`, `4-8 technical evidence cards including at least one AI Coding card or gap plan`, `4-5 story cards`, `2-3 commercial/adoption cards`, `3 industry judgment cards`, `2 learning/self-drive cards`, and `2-3 job-transfer cards`. Every card should include `what happened/decision`, `evidence`, `safe boundary`, `questions it supports`, and `what still needs confirmation`.
-
-### 6. Write answers in layers
-
-For important questions, prepare four layers:
-
-- **L0 一句话结论**: 10-15 seconds.
-- **L1 主回答**: 30-60 seconds; conclusion, evidence and boundary.
-- **L2 项目展开**: 90 seconds to 3 minutes; context, decision, action, result and reflection.
-- **L3 压力追问**: metrics, artifact, failure, counterfactual, business, industry, learning/self-drive and transfer branches.
-
-The student should memorize the logic and evidence anchors, not every sentence.
-
-### 7. Use the student answer-card format
-
-```markdown
-## 问题族：主题
-
-### 面试官可能怎么问
-- 问法 1
-- 问法 2
-- 压力追问
-
-### 一句话结论
-
-### 60 秒主回答
-
-### 3 分钟项目展开
-
-### 事实与证据
-- 事实：
-- 产物：
-- 指标口径：
-- 项目成熟度：
-
-### 追问分支
-- 真实性：
-- 技术：
-- 指标：
-- AI Coding：
-- 失败：
-- 商业：
-- 行业判断：
-- 学习/自驱：
-- 迁移：
-
-### 不能说过头
-- [待确认/目标值/非本人负责]
-
-### 面试前还要补什么
-```
-
-Use the full document structure in `references/output-template.md` for complete deliverables.
-
-### 8. Make the script sound human
-
-- Use the student's actual vocabulary and sentence length.
-- Prefer one concrete event over three abstract frameworks.
-- Put the conclusion first, then the evidence.
-- Name the trade-off, rejected alternative and boundary.
-- Include honest uncertainty and `[待确认]` where needed.
-- Vary answer structures; do not repeat `本质上`, `我的核心观点是`, `三点`, or the same STAR template in every answer.
-- Avoid jargon stacking such as listing RAG, Agent, Prompt, Eval and routing without a user task and artifact.
-- Do not claim `主导`, `上线`, `准确率`, `降本`, `零维护` or `客户续签` without scope, stage and evidence.
-
-### 9. Pressure-test the draft
-
-For each core project, run this sequence:
-
-1. **Fact**: What actually happened and what maturity level was reached?
-2. **Ownership**: What did the student personally define, do and decide?
-3. **Evidence**: Which artifact, Trace, metric or user result proves it?
-4. **Break**: Give one failure, ambiguity, stale data, low confidence, permission or user-behavior case.
-5. **Trade-off**: Cut budget/time/model/data access and require a decision.
-6. **Transfer**: Ask how the method changes in a new company or domain.
-
-Then run the cross-cutting audit: `M15 数据卡 -> AI Coding 产物/缺口 -> 带日期的行业判断 -> 学习与自驱闭环`. Do not accept a polished answer until the relevant card contains evidence and an honesty boundary.
-
-Score answers using the rubric in `references/coverage-model.md`. Rewrite only after identifying the missing evidence or decision.
-
-## Required Deliverables
-
-A complete student package should contain:
-
-1. Fact/evidence ledger and conflict list.
-2. Candidate positioning and evidence-backed capability gaps.
-3. `逐字稿准备清单与缺口诊断`: all applicable P0/P1/P2 dimensions, current status, missing material and next action.
-4. Interview question-family map.
-5. `能力覆盖检查`: `dimension -> question/script section -> Core/Branch/N/A`.
-6. 30-second and 90-second self-introduction.
-7. Career-transition motivation, why-now, company/JD fit, strengths/gaps and target-level answer.
-8. One 3-5 minute main narrative per major project.
-9. User workflow, AI necessity, MVP/non-goals, product interaction and roadmap preparation.
-10. Layered answer cards for core question families.
-11. Technical pressure-test module for each applicable AI project.
-12. One `M15 数据指标卡` for every key numerical claim, including numerator, denominator/exclusions, sample/slices, cycle, Ground Truth, before/after/control, attribution, guardrails, business result and evidence status.
-13. Project artifact walk-through, Eval/Judge and Bad Case Trace preparation.
-14. Web/Vibe/AI Coding artifact card: runnable output, AI-versus-person contribution, tests, Debug, security/deployment boundary and product decision impact; if absent, an honest gap and practice plan.
-15. Three AI industry judgment cards: consensus trend, non-consensus view and target-company implication, with dated evidence and falsification conditions.
-16. Two learning/self-drive cards: one closed learning loop and one unassigned initiative, including visible output, feedback/verification and behavior change.
-17. Reliability, security/privacy, fairness, cost/latency and LLMOps/release preparation when applicable.
-18. Failure, conflict, user-discovery, rejected-idea and reversed-decision stories.
-19. Buyer/ROI/adoption, delivery/change management, productization/scale and competitive-moat preparation.
-20. Traditional-experience transfer, unfamiliar-domain Case, 30/60/90, career plan and reverse questions.
-21. HR logistics, interview recovery and company-specific preparation when relevant.
-22. `不能说过头` and `[待补证据]` checklist.
-23. A 7-day or interview-date preparation plan when requested.
-
-Open every full deliverable with a plain-language `如何使用这份文档`: `先核实事实 -> 准备最高概率问题 -> 按问题族练追问 -> 补证据并删除夸大表述`. Explain the fact/evidence ledger as a `简历对账表`, not as an abstract methodology.
-
-## Question and Script Budget
-
-Default full package:
-
-- 10-12 Core question families for a 60-minute interview;
-- 20-40 Branch questions grouped under the Core families;
-- 8-12 product-level technical pressure cards per major AI project;
-- 5-8 behavioral/job-fit/commercial cards;
-- 1-3 cross-cutting Core families for M15, AI Coding, industry judgment and learning/self-drive, with remaining checks as Branches;
-- one answer asset may support multiple question variants.
-
-Do not create 100 unrelated memorization answers. A large question bank is allowed only when it is clearly grouped into reusable families and optional branches.
-
-## Boundaries
-
-- Do not invent users, customers, dates, team members, metrics, deployment stages, code, feedback or business results.
-- Do not calculate a missing numerator/denominator, baseline, period or attribution from an ambiguous resume sentence. Ask the student to verify it and lower the claim strength meanwhile.
-- Do not teach the student to conceal that a project is M0-M3. Help them present design judgment and validation plans honestly.
-- Do not turn the student into an algorithm engineer. Ask product-relevant technical judgment and request implementation detail only when the student claims hands-on ownership.
-- Do not write a fake P7 answer for a junior candidate. Calibrate to the target JD and current evidence, then show what would be needed to reach the higher level.
-- Do not use education, company brand or tool names as substitutes for project evidence.
-- Do not treat AI Coding as “prompting until it runs”; require tests, Debug, security and a clear product validation result. Do not describe AI-generated code as independently hand-written.
-- Do not treat trend slogans, course completion, certificates, time spent or overtime as proof of industry judgment, learning or self-drive.
-
-## File Handling
-
-When writing locally or to Obsidian:
-
-- Preserve the original resume, PRD and script.
-- Create a clearly named new Markdown file unless the user explicitly asks to overwrite.
-- Prefer `候选人｜AI 产品经理｜学员逐字稿搭建与压力测试.md`.
-- Use Obsidian-safe Markdown and internal wikilinks when source files are in the vault.
-- After writing, run the validator and verify that the coverage audit, fact boundaries, Core/Branch split and required deliverables are present.
-
-## Completion Checklist
-
-- No source contradiction is hidden.
-- No target or benchmark is written as an achieved result.
-- A full `逐字稿准备清单与缺口诊断` is present; all P0 dimensions are ready or have a concrete next action.
-- Every important resume claim has at least one likely question and one evidence requirement.
-- Every key number has an M15 data card; `98%` can be explained as a definition, numerator, denominator, sample, cycle, baseline/comparison, attribution, guardrail and business meaning.
-- Every applicable coverage dimension is present or marked `N/A`.
-- Major technical claims include chain, artifact/Trace, failure and trade-off.
-- AI Coding has a real artifact/test/Debug/security/product-impact card or an explicit gap plan.
-- Industry judgment contains dated evidence, a target-company implication and a condition that would change the view.
-- Learning/self-drive contains a self-identified gap/problem, visible output, feedback/verification and behavior change, not only course hours.
-- At least half of Core questions rely on past evidence.
-- At least one failure, conflict, reversed judgment, buyer/adoption issue and transfer case is prepared.
-- Answers sound like the student, not a generic AI-generated management essay.
-- The script teaches adaptable logic rather than line-by-line memorization only.
+1. 第一阶段是否恰好 50 道不重复的主问题、每行只含题号与题干，且已问学员是否细化。
+2. 内部是否覆盖 A–K 适用能力域，C/E/F/G 的技术题是否足够深入并覆盖数据、架构、评测、运行与风险。
+3. 主问题是否来自候选人的经历或该岗位必需能力；有无把未发生经历写进题干。
+4. 第二阶段是否只在学员确认后开始，每道已展开的题是否都有**考什么、回答模型、参考回答**，且模型因题而异。
+5. 参考回答是否口语化、可信，并保持学生版边界；没有旧式台账和卡片压过题目与回答。
